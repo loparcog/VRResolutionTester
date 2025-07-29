@@ -397,6 +397,7 @@ GameObject:
   - component: {fileID: 1155155661}
   - component: {fileID: 1155155660}
   - component: {fileID: 1155155659}
+  - component: {fileID: 1155155662}
   m_Layer: 0
   m_Name: Zoom Screen
   m_TagString: Untagged
@@ -449,7 +450,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155155657}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -495,6 +496,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155155657}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1155155662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155155657}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21572fcc72e76524984c6c3386a7cceb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1173388831
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,8 +627,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1886037296}
   - component: {fileID: 1886037295}
+  - component: {fileID: 1886037297}
   m_Layer: 0
-  m_Name: Line Pair Generator
+  m_Name: Script Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -650,6 +664,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1886037297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886037294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8478664b3ff7f1f4987ab66eb81bbf2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerButton: {fileID: 840888759536563844, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  primaryButton: {fileID: 7410009744087684886, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  mesh: {fileID: 1155155660}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

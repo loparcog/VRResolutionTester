@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Resolution Tester.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 91ae6ce19818b7947a19a8fd2c460473, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: e53067b98dbe0814c9912662b27992a0, type: 2}
   m_UseUCBPForAssetBundles: 0
