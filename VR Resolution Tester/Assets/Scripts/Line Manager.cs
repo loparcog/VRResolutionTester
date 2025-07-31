@@ -12,7 +12,7 @@ public class LineManager : MonoBehaviour
     // Actions to select a smaller or larger line pair
     [SerializeField] public InputActionReference selectSmallerAction;
     [SerializeField] public InputActionReference selectLargerAction;
-    [SerializeField] public TextMeshPro selectedText;
+    [SerializeField] public TextMeshProUGUI selectedText;
     // Scaling array, determines the number of duplicated line groups
     private double[] scalingFactors = { 1, 0.8, 0.64, 0.51, 0.41, 0.33, 0.26, 0.21, 0.17, 0.13, 0.11, 0.09, 0.07, 0.05, 0.04, 0.03 };
     // Object to hold references to newly created line group GameObjects
@@ -77,5 +77,6 @@ public class LineManager : MonoBehaviour
         // Highlight the current line
         lineGroupDict[scalingFactors[highlightIdx]].GetComponent<HighlightChildren>().highlightLines();
         // Update the text to reflect this change (TODO)
+        selectedText.text = string.Format("Selected: {0:0.00}mm", scalingFactors[highlightIdx] * 5);
     }
 }
