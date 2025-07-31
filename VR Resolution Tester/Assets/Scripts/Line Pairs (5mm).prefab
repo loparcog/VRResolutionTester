@@ -839,6 +839,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1591150814535718771}
+  - component: {fileID: 4148065983028299641}
   m_Layer: 0
   m_Name: Line Pairs (5mm)
   m_TagString: Untagged
@@ -868,3 +869,17 @@ Transform:
   - {fileID: 2302797028940924510}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4148065983028299641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8898758531091120909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6399322a3a119445a8746c826d0f06c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMat: {fileID: 2100000, guid: 24ff1921ecb74054f826e68b73dfbbc3, type: 2}
+  highlightMat: {fileID: 2100000, guid: 134b2a7e708a5724082767d2162a8ecf, type: 2}
