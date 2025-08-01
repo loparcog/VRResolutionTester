@@ -1030,6 +1030,15 @@
                     "processors": "",
                     "interactions": "Sector(directions=2)",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Right Secondary Button",
+                    "type": "Button",
+                    "id": "568c566c-e639-4a09-804e-31700e86a6af",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1074,6 +1083,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Right Joystick Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b8b594a-0084-4ea1-bb8a-a213a82f4307",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Right Secondary Button",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

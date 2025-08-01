@@ -989,6 +989,7 @@ GameObject:
   - component: {fileID: 1886037296}
   - component: {fileID: 1886037297}
   - component: {fileID: 1886037298}
+  - component: {fileID: 1886037299}
   m_Layer: 0
   m_Name: Script Manager
   m_TagString: Untagged
@@ -1041,7 +1042,20 @@ MonoBehaviour:
   inverseLineGroup: {fileID: 1404776696583425980, guid: d6ee82cb768ffc84cbdfba9251ba5ae6, type: 3}
   selectSmallerAction: {fileID: -3785538518574044256, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   selectLargerAction: {fileID: -186111726216819391, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  selectedText: {fileID: 1295888336}
+  lineSizeText: {fileID: 1295888336}
+--- !u!114 &1886037299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886037294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14983211fcb6fe545bfbf219d1e9d08e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swapSceneAction: {fileID: -3935070065718508725, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -988,7 +988,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1886037296}
   - component: {fileID: 1886037297}
-  - component: {fileID: 1886037298}
   - component: {fileID: 1886037299}
   m_Layer: 0
   m_Name: Script Manager
@@ -1026,23 +1025,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   primaryButton: {fileID: 1863869598806204434, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   mesh: {fileID: 1155155660}
---- !u!114 &1886037298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1886037294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d337d961f84d73849aa39737c5e1e573, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lineGroup: {fileID: 8898758531091120909, guid: 525668062aaf3514cb0782f388ce7711, type: 3}
-  inverseLineGroup: {fileID: 1404776696583425980, guid: d6ee82cb768ffc84cbdfba9251ba5ae6, type: 3}
-  selectSmallerAction: {fileID: -3785538518574044256, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  selectLargerAction: {fileID: -186111726216819391, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  lineSizeText: {fileID: 1295888336}
 --- !u!114 &1886037299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1058,6 +1040,7 @@ MonoBehaviour:
   lineGroup: {fileID: 8898758531091120909, guid: 525668062aaf3514cb0782f388ce7711, type: 3}
   increaseLineSizeAction: {fileID: -186111726216819391, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   decreaseLineSizeAction: {fileID: -3785538518574044256, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  fineTuneAction: {fileID: -8716261714109575102, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   lineSizeText: {fileID: 1295888336}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
