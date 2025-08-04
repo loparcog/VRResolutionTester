@@ -14,11 +14,11 @@ public class LineManager : MonoBehaviour
     [SerializeField] public InputActionReference selectLargerAction;
     [SerializeField] public TextMeshProUGUI lineSizeText;
     // Scaling array, determines the number of duplicated line groups
-    private double[] scalingFactors = { 1, 0.8, 0.64, 0.51, 0.41, 0.33, 0.26, 0.21, 0.17, 0.13, 0.11, 0.09, 0.07, 0.05, 0.04, 0.03 };
+    public static double[] scalingFactors = { 1, 0.8, 0.64, 0.51, 0.41, 0.33, 0.26, 0.21, 0.17, 0.13, 0.11, 0.09, 0.07, 0.05, 0.04, 0.03 };
     // Object to hold references to newly created line group GameObjects
     private Dictionary<double, GameObject> lineGroupDict = new Dictionary<double, GameObject>();
     // Currently selected index
-    private int selectedIdx = 0;
+    public static int selectedIdx = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

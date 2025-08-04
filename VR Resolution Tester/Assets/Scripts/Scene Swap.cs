@@ -15,6 +15,8 @@ public class SceneSwap : MonoBehaviour
     // Update is called once per frame
     void UpdateScene(InputAction.CallbackContext context)
     {
+        // Disable the script manager
+        GameObject.Find("Script Manager").SetActive(false);
         // Load the next scene
         SceneManager.LoadScene(1);
         // Can also do

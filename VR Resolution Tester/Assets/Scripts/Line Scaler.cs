@@ -29,6 +29,8 @@ public class LineScaler : MonoBehaviour
         fineTuneAction.action.canceled += FineTuneDisabled;
         // Make the line group a real game object
         runtimeLineGroup = Instantiate(lineGroup);
+        // Grab the last selected line scale
+        currentLineScale = (float)LineManager.scalingFactors[LineManager.selectedIdx];
         // Update the current text
         updateLineSize();
     }
