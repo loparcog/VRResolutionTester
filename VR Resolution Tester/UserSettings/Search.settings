@@ -69,6 +69,7 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"secibd"
 	"trigger"
 	"right j"
 	"right "
