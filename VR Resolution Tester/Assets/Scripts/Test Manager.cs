@@ -1,4 +1,5 @@
 using System.IO;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.WSA;
@@ -7,6 +8,7 @@ public class TestManager : MonoBehaviour
 {
     // Scene Prefabs
     [SerializeField] public GameObject startScreen;
+    [SerializeField] public GameObject endScreen;
     [SerializeField] public GameObject horizontalLP;
     [SerializeField] public Material highlightMaterial;
     // Controller input actions
@@ -17,7 +19,7 @@ public class TestManager : MonoBehaviour
     [SerializeField] public InputActionReference joystickDown;
     [SerializeField] public bool logData = false;
     // Scenes, in order
-    private string[] scenes = { "start", "lp_horizontal", "lp_vertical", "lp_diagonal" };
+    private string[] scenes = { "start", "lp_horizontal", "lp_vertical", "lp_diagonal", "final" };
     private int sceneIndex = 0;
     // Information on the current line scaling
     private float currentScale = 1;
@@ -47,6 +49,11 @@ public class TestManager : MonoBehaviour
                 {
                     fs.Close();
                 }
+            }
+            // Write the UUID
+            using (StreamWriter sw = File.AppendText(filePath))
+            {
+                sw.WriteLine(UUID);
             }
         }
         // Show the start screen
@@ -82,7 +89,15 @@ public class TestManager : MonoBehaviour
         // Reset the scale
         currentScale = 1;
         // Set up the new scene
-        drawNewLPs();
+        if (sceneIndex < scenes.Length - 1)
+        {
+            drawNewLPs();
+        }
+        else
+        {
+            // Just show the end screen
+            currentScene = Instantiate(endScreen);
+        }
     }
 
     private void drawNewLPs()
@@ -124,6 +139,8 @@ public class TestManager : MonoBehaviour
 
     void IncreaseLPSize(InputAction.CallbackContext context)
     {
+        // Make sure its a valid scene
+        if (sceneIndex == 0 || sceneIndex == scenes.Length - 1) return;
         // Check for a fine zoom
         if (fineZoom)
         {
@@ -140,6 +157,7 @@ public class TestManager : MonoBehaviour
 
     void DecreaseLPSize(InputAction.CallbackContext context)
     {
+        if (sceneIndex == 0 || sceneIndex == scenes.Length - 1) return;
         if (fineZoom)
         {
             currentScale -= 0.01f;
