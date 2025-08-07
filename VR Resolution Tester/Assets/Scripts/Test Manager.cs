@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using NUnit.Framework.Constraints;
 using Unity.XR.CoreUtils;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.InputSystem;
@@ -49,9 +50,11 @@ public class TestManager : MonoBehaviour
         if (logData)
         {
             // Update the file and directory paths to accomodate the current application path
-            dirPath = Path.Combine(Application.persistentDataPath, dirPath);
-            filePath = Path.Combine(dirPath, filePath);
-            Debug.Log("Data being saved to: " + Application.persistentDataPath);
+            // Can't use Path.Combine() since it gets funky with the slashes
+            dirPath = Application.persistentDataPath + "/" + dirPath;
+            filePath = dirPath + "/" + filePath;
+            
+            Debug.Log("Data being saved to: " + Application.persistentDataPath + "\\" + "AAA");
             // Make sure the screenshot folder and text document exists
             if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
             if (!File.Exists(filePath))
@@ -78,7 +81,10 @@ public class TestManager : MonoBehaviour
         // Iterate to the next scene if possible
         if (sceneIndex == scenes.Length - 1)
         {
-            // End of scenes, don't progress
+            // End of scenes, close application
+            Application.Quit();
+            // For debug use in the Unity editor
+            EditorApplication.isPlaying = false;
             return;
         }
 
@@ -88,8 +94,8 @@ public class TestManager : MonoBehaviour
         if (logData & sceneName[0] == "lp")
         {
             // Screenshot the current camera view
-            ScreenCapture.CaptureScreenshot(Path.Combine(dirPath, UUID + "-" + sceneIndex + ".png"));
-            Debug.Log(Path.Combine(dirPath, UUID + "-" + sceneIndex + ".png"));
+            ScreenCapture.CaptureScreenshot(dirPath + "/" + UUID + "-" + sceneIndex + ".png");
+            Debug.Log(dirPath + "/" + UUID + "-" + sceneIndex + ".png");
             // Write the current data to the text document
             using (StreamWriter sw = File.AppendText(filePath))
             {
