@@ -1,13 +1,18 @@
 using System.IO;
 using NUnit.Framework.Constraints;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.WSA;
 
 public class TestManager : MonoBehaviour
 {
-    // Scene Prefabs
+    // Camera objects
+    [SerializeField] public GameObject staticCamera;
+    [SerializeField] public GameObject XRCamera;
+    // Scene prefabs
     [SerializeField] public GameObject startScreen;
+    [SerializeField] public GameObject dynamicScreen;
     [SerializeField] public GameObject endScreen;
     [SerializeField] public GameObject horizontalLP;
     [SerializeField] public Material highlightMaterial;
@@ -19,7 +24,7 @@ public class TestManager : MonoBehaviour
     [SerializeField] public InputActionReference joystickDown;
     [SerializeField] public bool logData = false;
     // Scenes, in order
-    private string[] scenes = { "start", "lp_horizontal", "lp_vertical", "lp_diagonal", "final" };
+    private string[] scenes = { "scene_start", "lp_horizontal", "lp_vertical", "lp_diagonal", "scene_dynamic",  "lp_horizontal", "lp_vertical", "lp_diagonal", "scene_end"};
     private int sceneIndex = 0;
     // Information on the current line scaling
     private float currentScale = 1;
@@ -39,9 +44,10 @@ public class TestManager : MonoBehaviour
         joystickDown.action.performed += DecreaseLPSize;        
         triggerButton.action.started += FineTuneEnabled;
         triggerButton.action.canceled += FineTuneDisabled;
-        // Make sure the screenshot folder and text document exists
+        // Initialize log information if needed
         if (logData)
         {
+            // Make sure the screenshot folder and text document exists
             if (!Directory.Exists(dirName)) Directory.CreateDirectory(dirName);
             if (!File.Exists(filePath))
             {
@@ -50,10 +56,11 @@ public class TestManager : MonoBehaviour
                     fs.Close();
                 }
             }
-            // Write the UUID
+            // Write the UUID to the text file
             using (StreamWriter sw = File.AppendText(filePath))
             {
                 sw.WriteLine(UUID);
+                sw.WriteLine("STATIC:");
             }
         }
         // Show the start screen
@@ -66,41 +73,42 @@ public class TestManager : MonoBehaviour
         // Iterate to the next scene if possible
         if (sceneIndex == scenes.Length - 1)
         {
-            // End of scenes, close the game
+            // End of scenes, don't progress
             return;
         }
 
-        // Take a screenshot if needed
-        if (logData & sceneIndex > 0)
+        var sceneName = scenes[sceneIndex].Split("_");
+
+        // Take a screenshot if in a line pair scene
+        if (logData & sceneName[0] == "lp")
         {
             // Screenshot the current camera view
             ScreenCapture.CaptureScreenshot("VRRT Data\\" + UUID + "-" + sceneIndex + ".png");
             // Write the current data to the text document
             using (StreamWriter sw = File.AppendText(filePath))
             {
-                sw.WriteLine(scenes[sceneIndex].Split("_")[1] + ": " + currentScale + "mm");
+                sw.WriteLine(sceneName[1] + ": " + currentScale.ToString("F3") + "mm");
             }
         }
-        // Store the data 
         // Destroy the existing scene
         Destroy(currentScene);
-
+        // Iterate the scene index
         sceneIndex += 1;
+        sceneName = scenes[sceneIndex].Split("_");
         // Reset the scale
         currentScale = 1;
         // Set up the new scene
-        if (sceneIndex < scenes.Length - 1)
+        if (sceneName[0] == "lp")
         {
-            drawNewLPs();
+            drawNewLPs(sceneName);
         }
         else
         {
-            // Just show the end screen
-            currentScene = Instantiate(endScreen);
+            drawNewMenu(sceneName);
         }
     }
 
-    private void drawNewLPs()
+    private void drawNewLPs(string[] sceneName)
     {
         // Create the static lines
         // (Five line pairs with differenting sizes)
@@ -123,7 +131,7 @@ public class TestManager : MonoBehaviour
             linePair.transform.parent = currentScene.transform;
         }
         // Change the scene based on the setup
-        switch (scenes[sceneIndex].Split("_")[1])
+        switch (sceneName[1])
         {
             case "horizontal":
                 // No rotation needed
@@ -133,6 +141,31 @@ public class TestManager : MonoBehaviour
                 break;
             case "diagonal":
                 currentScene.transform.Rotate(0, 45, 0);
+                break;
+        }
+    }
+
+    private void drawNewMenu(string[] sceneName)
+    {
+        // Show the right menu based on the name
+        switch (sceneName[1])
+        {
+            case "dynamic":
+                // Show the menu and enable head tracking
+                currentScene = Instantiate(dynamicScreen);
+                staticCamera.SetActive(false);
+                XRCamera.SetActive(true);
+                // Also log this change
+                if (logData)
+                {
+                    using (StreamWriter sw = File.AppendText(filePath))
+                    {
+                        sw.WriteLine("DYNAMIC:");
+                    }
+                }
+                break;
+            case "end":
+                currentScene = Instantiate(endScreen);
                 break;
         }
     }
