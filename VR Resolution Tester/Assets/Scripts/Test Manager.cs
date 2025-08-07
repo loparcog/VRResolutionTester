@@ -1,9 +1,10 @@
+using System;
 using System.IO;
 using NUnit.Framework.Constraints;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.InputSystem;
-using UnityEngine.WSA;
 
 public class TestManager : MonoBehaviour
 {
@@ -27,13 +28,13 @@ public class TestManager : MonoBehaviour
     private string[] scenes = { "scene_start", "lp_horizontal", "lp_vertical", "lp_diagonal", "scene_dynamic",  "lp_horizontal", "lp_vertical", "lp_diagonal", "scene_end"};
     private int sceneIndex = 0;
     // Information on the current line scaling
-    private float currentScale = 1;
+    private float currentScale = 0.5f;
     private bool fineZoom = false;
     private GameObject currentScene;
     // Data for screenshotting and file writing
     private string UUID = System.Guid.NewGuid().ToString();
-    private string filePath = "VRRT Data\\VRRTData.txt";
-    private string dirName = "VRRT Data";
+    private string filePath = "VRRTData.txt";
+    private string dirPath = "VRRT Data";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,8 +48,12 @@ public class TestManager : MonoBehaviour
         // Initialize log information if needed
         if (logData)
         {
+            // Update the file and directory paths to accomodate the current application path
+            dirPath = Path.Combine(Application.persistentDataPath, dirPath);
+            filePath = Path.Combine(dirPath, filePath);
+            Debug.Log("Data being saved to: " + Application.persistentDataPath);
             // Make sure the screenshot folder and text document exists
-            if (!Directory.Exists(dirName)) Directory.CreateDirectory(dirName);
+            if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
             if (!File.Exists(filePath))
             {
                 using (FileStream fs = File.Create(filePath))
@@ -83,7 +88,8 @@ public class TestManager : MonoBehaviour
         if (logData & sceneName[0] == "lp")
         {
             // Screenshot the current camera view
-            ScreenCapture.CaptureScreenshot("VRRT Data\\" + UUID + "-" + sceneIndex + ".png");
+            ScreenCapture.CaptureScreenshot(Path.Combine(dirPath, UUID + "-" + sceneIndex + ".png"));
+            Debug.Log(Path.Combine(dirPath, UUID + "-" + sceneIndex + ".png"));
             // Write the current data to the text document
             using (StreamWriter sw = File.AppendText(filePath))
             {
@@ -95,8 +101,6 @@ public class TestManager : MonoBehaviour
         // Iterate the scene index
         sceneIndex += 1;
         sceneName = scenes[sceneIndex].Split("_");
-        // Reset the scale
-        currentScale = 1;
         // Set up the new scene
         if (sceneName[0] == "lp")
         {
@@ -114,12 +118,12 @@ public class TestManager : MonoBehaviour
         // (Five line pairs with differenting sizes)
         currentScene = new GameObject();
         currentScene.name = "Line Pairs";
-        for (int i = -2; i < 3; i++)
+        for (int i = -1; i < 2; i++)
         {
             var linePair = Instantiate(horizontalLP);
-            var scale = (float)(1 + (i * 0.1));
+            var scale = (float)(1 + (i * 0.01));
             linePair.transform.localScale = new Vector3(1, 1, scale);
-            linePair.transform.Translate(0, 0, i * (scale * 8));
+            linePair.transform.Translate(0, 0, i * (scale * 20));
             // Highlight the middle pair
             if (i == 0)
             {
@@ -130,6 +134,8 @@ public class TestManager : MonoBehaviour
             }
             linePair.transform.parent = currentScene.transform;
         }
+        // Scale the scene to match the last point
+        currentScene.transform.localScale = new Vector3(1, 1, currentScale);
         // Change the scene based on the setup
         switch (sceneName[1])
         {
@@ -172,16 +178,16 @@ public class TestManager : MonoBehaviour
 
     void IncreaseLPSize(InputAction.CallbackContext context)
     {
-        // Make sure its a valid scene
-        if (sceneIndex == 0 || sceneIndex == scenes.Length - 1) return;
+        // Make sure its a line pair scene
+        if (scenes[sceneIndex].Split("_")[0] == "scene") return;
         // Check for a fine zoom
         if (fineZoom)
         {
-            currentScale += 0.01f;
+            currentScale += 0.001f;
         }
         else
         {
-            currentScale += 0.1f;
+            currentScale += 0.01f;
         }
         // Limit zoom out
         if (currentScale > 1f) currentScale = 1f;
@@ -190,14 +196,14 @@ public class TestManager : MonoBehaviour
 
     void DecreaseLPSize(InputAction.CallbackContext context)
     {
-        if (sceneIndex == 0 || sceneIndex == scenes.Length - 1) return;
+        if (scenes[sceneIndex].Split("_")[0] == "scene") return;
         if (fineZoom)
         {
-            currentScale -= 0.01f;
+            currentScale -= 0.001f;
         }
         else
         {
-            currentScale -= 0.1f;
+            currentScale -= 0.01f;
         }
         // Limit zoom in
         if (currentScale < 0f) currentScale = 0f;

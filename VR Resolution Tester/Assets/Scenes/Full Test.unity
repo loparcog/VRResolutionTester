@@ -340,7 +340,7 @@ MonoBehaviour:
   staticCamera: {fileID: 1895763119}
   XRCamera: {fileID: 601329056}
   startScreen: {fileID: 2371330796395690905, guid: 4b695c3f9c26ea24d9b9d99671badf2e, type: 3}
-  dynamicScreen: {fileID: 2371330796395690905, guid: 4b695c3f9c26ea24d9b9d99671badf2e, type: 3}
+  dynamicScreen: {fileID: 2371330796395690905, guid: ea573ad280ed9c74380f60aab6007c41, type: 3}
   endScreen: {fileID: 2371330796395690905, guid: 764ae72da546a904ab102601f55d7dc4, type: 3}
   horizontalLP: {fileID: 4110633588489266064, guid: 0e5a526a741dd404aa5a1d2201ff550b, type: 3}
   highlightMaterial: {fileID: 2100000, guid: 134b2a7e708a5724082767d2162a8ecf, type: 2}
@@ -349,7 +349,7 @@ MonoBehaviour:
   triggerButton: {fileID: -8716261714109575102, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   joystickUp: {fileID: -3785538518574044256, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   joystickDown: {fileID: -186111726216819391, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  logData: 1
+  logData: 0
 --- !u!1 &1374507739
 GameObject:
   m_ObjectHideFlags: 0
